@@ -3,9 +3,26 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+// require express-handlebars here
+const exphbs = require('express-handlebars')
+const restaurantList = require('./Restaurant_List.json')
+
+// setting template engine
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+app.set('view engine', 'handlebars')
+
+// setting static files
+app.use(express.static('public'))
+
 // routes setting
 app.get('/', (req, res) => {
-  res.send('This is my movie list built with Express')
+  res.render('index', { restaurants: restaurantList.results })
+})
+
+app.get('/restaurants/:restaurant_id', (req, res) => {
+  const focusRestaurant = restaurantList.results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
+
+  res.render('show', { restaurants: focusRestaurant })
 })
 
 // start and listen on the Express server
