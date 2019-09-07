@@ -61,9 +61,14 @@ app.get('/restaurant/new', (req, res) => {
 })
 
 // 顯示一筆 Restaurant 的詳細內容
-app.get('/restaurant/:id', (req, res) => {
-  res.send('顯示 Restaurant 的詳細內容')
+app.get('/restaurants/:id', (req, res) => {
+  Restaurant.findById(req.params.id, (err, restaurants) => {
+    if (err) return console.error(err)
+    return res.render('show', { restaurants: restaurants })
+  })
 })
+
+
 // 新增一筆  Restaurant
 app.post('/restaurant', (req, res) => {
   // 建立 restaurant model 實例
