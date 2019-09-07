@@ -12,6 +12,9 @@ const Handlebars = require("handlebars")
 const mongoose = require('mongoose')
 // 引用 body-parser
 const bodyParser = require('body-parser');
+// 引用 method-override
+const methodOverride = require('method-override')
+
 
 // 設定連線到 mongoDB的restaurant
 mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true })
@@ -20,6 +23,8 @@ const db = mongoose.connection
 
 // 設定 bodyParser
 app.use(bodyParser.urlencoded({ extended: true }))
+// 設定 method-override
+app.use(methodOverride('_method'))
 
 // setting template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
@@ -60,12 +65,12 @@ app.get('/', (req, res) => {
 
 
 // 列出全部 Restaurant
-app.get('/restaurant', (req, res) => {
+app.get('/restaurants', (req, res) => {
   return res.redirect('/')
 })
 
 // 新增一筆 Restaurant 頁面
-app.get('/restaurant/new', (req, res) => {
+app.get('/restaurants/new', (req, res) => {
   return res.render('new')
 })
 
@@ -79,7 +84,7 @@ app.get('/restaurants/:id', (req, res) => {
 
 
 // 新增一筆  Restaurant
-app.post('/restaurant', (req, res) => {
+app.post('/restaurants', (req, res) => {
   // 建立 restaurant model 實例
   const restaurant = new Restaurant({
     name: req.body.name,
@@ -113,7 +118,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
 
 
 // 修改 Restaurant
-app.post('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
   Restaurant.findById(req.params.id, (err, restaurant) => {
     if (err) return console.error(err)
     restaurant.name = req.body.name
@@ -133,7 +138,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
 })
 
 // 刪除 Restaurant
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id/delete', (req, res) => {
   Restaurant.findById(req.params.id, (err, restaurant) => {
     if (err) return console.error(err)
     restaurant.remove(err => {
