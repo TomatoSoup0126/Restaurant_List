@@ -36,9 +36,9 @@ db.once('open', () => {
 //載入restaurant model
 const Restaurant = require('./models/restaurant')
 
-
+//首頁
 app.get('/', (req, res) => {
-  res.send('hello world!')
+  return res.render('index')
 })
 // 列出全部 Restaurant
 app.get('/restaurant', (req, res) => {
