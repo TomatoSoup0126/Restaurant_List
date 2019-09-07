@@ -4,10 +4,14 @@ const Restaurant = require('../models/restaurant')
 
 //首頁
 router.get('/', (req, res) => {
-  Restaurant.find((err, restaurants) => {
-    if (err) return console.log(err)
-    return res.render('index', { restaurants: restaurants })
-  })
+  sortObject = {}
+  sortObject[req.query.ref] = req.query.sort
+  Restaurant.find({})
+    .sort(sortObject)
+    .exec((err, restaurants) => {
+      if (err) return console.error(err)
+      return res.render('index', { restaurants: restaurants })
+    })
 })
 
 

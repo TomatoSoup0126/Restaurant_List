@@ -6,9 +6,26 @@
         <div class="input-group">
           <input type="text" name="keyword" value="{{keyword}}" class="form-control" placeholder="輸入餐廳、分類"
             aria-label="Restaurant Name..." value="" aria-describedby="search-button">
+
           <div class="input-group-append">
             <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
           </div>
+
+          <div class="dropdown ml-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              排序
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="/?ref=name&sort=asc">名稱 A->Z</a>
+              <a class="dropdown-item" href="/?ref=name&sort=desc">名稱 Z->A</a>
+              <a class="dropdown-item" href="/?ref=category&sort=asc">類別</a>
+              <a class="dropdown-item" href="/?ref=location&sort=asc">地區</a>
+              <a class="dropdown-item" href="/?ref=rating&sort=asc">評分 低->高</a>
+              <a class="dropdown-item" href="/?ref=rating&sort=desc">評分 高->低</a>
+            </div>
+          </div>
+
         </div>
       </form>
     </div>
