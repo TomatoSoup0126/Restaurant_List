@@ -178,3 +178,8 @@ header {
     font-size: 2rem;
   }
 }
+
+
+a:hover {
+  text-decoration: none;
+}

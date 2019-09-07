@@ -31,21 +31,23 @@
                 <i class="fas fa-utensils pr-2"></i> {{this.category}}
               </div>
 
+
               <span class="badge badge-pill badge-danger font-weight-normal">
                 {{this.rating}}
                 <i class="fas fa-star fa-xs"></i>
-              </span>
-
-
-              <span>
-                <a class="badge badge-secondary font-weight-normal" href="/restaurants/{{this.id}}/delete"><i
-                    class="far fa-trash-alt" aria-hidden="true"></i></a>
               </span>
 
               <span>
                 <a class="badge badge-secondary font-weight-normal" href="/restaurants/{{this.id}}/edit"><i
                     class="far fa-edit" aria-hidden="true"></i></a>
               </span>
+
+              <form action="/restaurants/{{this.id}}/delete" method="POST" style="display: inline;">
+                <button type="submit" class="badge badge-secondary font-weight-normal"><i class="far fa-trash-alt"
+                    aria-hidden="true"></i></button>
+              </form>
+
+
             </div>
           </div>
         </a>

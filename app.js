@@ -6,7 +6,7 @@ const port = 3000
 // require express-handlebars here
 const exphbs = require('express-handlebars')
 const Handlebars = require("handlebars")
-const restaurantList = require('./Restaurant_List.json')
+
 
 // 載入 mongoose
 const mongoose = require('mongoose')
@@ -133,32 +133,29 @@ app.post('/restaurants/:id/edit', (req, res) => {
 })
 
 // 刪除 Restaurant
-app.post('/restaurant/:id/delete', (req, res) => {
-  res.send('刪除 Restaurant')
+app.post('/restaurants/:id/delete', (req, res) => {
+  Restaurant.findById(req.params.id, (err, restaurant) => {
+    if (err) return console.error(err)
+    restaurant.remove(err => {
+      if (err) return console.error(err)
+      return res.redirect('/')
+    })
+  })
 })
 
-// app.get('/', (req, res) => {
-//   res.render('index', { restaurants: restaurantList.results })
-// })
 
-// app.get('/restaurants/:restaurant_id', (req, res) => {
-//   const focusRestaurant = restaurantList.results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
+app.get('/search', (req, res) => {
+  const keyword = req.query.keyword
+  const matchRestaurant = restaurantList.results.filter(restaurant => {
+    return restaurant.name.toLowerCase().includes(keyword.toLowerCase()) || restaurant.category.includes(keyword)
+  })
+  if (matchRestaurant.length === 0) {
+    res.render('unmatch', { keyword: keyword })
+  } else {
+    res.render('index', { restaurants: matchRestaurant, keyword: keyword })
+  }
 
-//   res.render('show', { restaurants: focusRestaurant })
-// })
-
-// app.get('/search', (req, res) => {
-//   const keyword = req.query.keyword
-//   const matchRestaurant = restaurantList.results.filter(restaurant => {
-//     return restaurant.name.toLowerCase().includes(keyword.toLowerCase()) || restaurant.category.includes(keyword)
-//   })
-//   if (matchRestaurant.length === 0) {
-//     res.render('unmatch', { keyword: keyword })
-//   } else {
-//     res.render('index', { restaurants: matchRestaurant, keyword: keyword })
-//   }
-
-// })
+})
 
 // start and listen on the Express server
 app.listen(port, () => {
