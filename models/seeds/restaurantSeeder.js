@@ -12,6 +12,7 @@ db.on('error', () => {
 
 db.once('open', () => {
   console.log('db connected!')
+
   for (let i = 0; i < restaurantSeedList.results.length; i++) {
     const item = restaurantSeedList.results[i];
     Restaurant.create(item)

@@ -36,8 +36,37 @@ db.once('open', () => {
 //載入restaurant model
 const Restaurant = require('./models/restaurant')
 
+
 app.get('/', (req, res) => {
   res.send('hello world!')
+})
+// 列出全部 Restaurant
+app.get('/restaurant', (req, res) => {
+  res.send('列出所有 Restaurant')
+})
+// 新增一筆 Restaurant 頁面
+app.get('/restaurant/new', (req, res) => {
+  res.send('新增 Restaurant 頁面')
+})
+// 顯示一筆 Restaurant 的詳細內容
+app.get('/restaurant/:id', (req, res) => {
+  res.send('顯示 Restaurant 的詳細內容')
+})
+// 新增一筆  Restaurant
+app.post('/restaurant', (req, res) => {
+  res.send('建立 Restaurant')
+})
+// 修改 Restaurant 頁面
+app.get('/restaurant/:id/edit', (req, res) => {
+  res.send('修改 Restaurant 頁面')
+})
+// 修改 Restaurant
+app.post('/restaurant/:id/edit', (req, res) => {
+  res.send('修改 Restaurant')
+})
+// 刪除 Restaurant
+app.post('/restaurant/:id/delete', (req, res) => {
+  res.send('刪除 Restaurant')
 })
 
 // app.get('/', (req, res) => {
