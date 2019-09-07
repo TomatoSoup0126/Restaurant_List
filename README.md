@@ -35,13 +35,13 @@
   ```
 
 ### 啟動mangoDB
-- macOS於終端機下移動至mangoDB資料夾下 `$ cd mongodb/bin
+- macOS於終端機下移動至mangoDB資料夾下 `$ cd mongodb/bin`
 
-- 啟動mangoDB `$ ./mongod --dbpath ~/mongodb-data --bind_ip 127.0.0.1
+- 啟動mangoDB `$ ./mongod --dbpath ~/mongodb-data --bind_ip 127.0.0.1`
 
 ### 寫入預設資料(選擇性)
-- 於終端機中進入專案資料夾下的seeds `$ cd models/seeds
-- 寫入預設資料 `$ node restaurantSeeder.js
+- 於終端機中進入專案資料夾下的seeds `$ cd models/seeds`
+- 寫入預設資料 `$ node restaurantSeeder.js`
 
 
 ### 啟動伺服器
