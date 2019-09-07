@@ -38,12 +38,18 @@ const Restaurant = require('./models/restaurant')
 
 //首頁
 app.get('/', (req, res) => {
-  return res.render('index')
+  Restaurant.find((err, restaurants) => {
+    if (err) return console.log(err)
+    return res.render('index', { restaurants: restaurants })
+  })
 })
+
+
 // 列出全部 Restaurant
 app.get('/restaurant', (req, res) => {
-  res.send('列出所有 Restaurant')
+  return res.redirect('/')
 })
+
 // 新增一筆 Restaurant 頁面
 app.get('/restaurant/new', (req, res) => {
   res.send('新增 Restaurant 頁面')
