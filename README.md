@@ -1,4 +1,4 @@
-# Rsstaurant List 2.0
+# Rsstaurant List 2.1
 餐廳清單網頁練習專案
 
 ### 功能
