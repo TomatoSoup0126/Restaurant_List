@@ -5,6 +5,7 @@ const port = 3000
 
 // require express-handlebars here
 const exphbs = require('express-handlebars')
+const Handlebars = require("handlebars")
 const restaurantList = require('./Restaurant_List.json')
 
 // 載入 mongoose
@@ -26,6 +27,14 @@ app.set('view engine', 'handlebars')
 
 // setting static files
 app.use(express.static('public'))
+
+//自定義helper
+Handlebars.registerHelper('if_equal', function (item, expectedItem, options) {
+  if (item === expectedItem) {
+    return options.fn(this);
+  }
+  return options.inverse(this);
+});
 
 // routes setting
 // 連線異常
@@ -94,13 +103,35 @@ app.post('/restaurant', (req, res) => {
 
 
 // 修改 Restaurant 頁面
-app.get('/restaurant/:id/edit', (req, res) => {
-  res.send('修改 Restaurant 頁面')
+app.get('/restaurants/:id/edit', (req, res) => {
+  Restaurant.findById(req.params.id, (err, restaurants) => {
+    if (err) return console.error(err)
+    return res.render('edit', { restaurants: restaurants })
+  })
 })
+
+
+
 // 修改 Restaurant
-app.post('/restaurant/:id/edit', (req, res) => {
-  res.send('修改 Restaurant')
+app.post('/restaurants/:id/edit', (req, res) => {
+  Restaurant.findById(req.params.id, (err, restaurant) => {
+    if (err) return console.error(err)
+    restaurant.name = req.body.name
+    restaurant.name_en = req.body.name_en
+    restaurant.category = req.body.category
+    restaurant.image = req.body.image
+    restaurant.location = req.body.location
+    restaurant.phone = req.body.phone
+    restaurant.google_map = req.body.google_map
+    restaurant.rating = req.body.rating
+    restaurant.description = req.body.description
+    restaurant.save(err => {
+      if (err) return console.error(err)
+      return res.redirect(`/restaurants/${req.params.id}`)
+    })
+  })
 })
+
 // 刪除 Restaurant
 app.post('/restaurant/:id/delete', (req, res) => {
   res.send('刪除 Restaurant')
