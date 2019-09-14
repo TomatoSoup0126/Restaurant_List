@@ -52,10 +52,6 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
-//載入restaurant model
-const Restaurant = require('./models/restaurant')
-
-
 
 app.use('/', require('./routes/home'))
 app.use('/restaurants', require('./routes/restaurant'))
