@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 const session = require('express-session')
+const passport = require('passport')
 
 // require express-handlebars here
 const exphbs = require('express-handlebars')
@@ -40,6 +41,18 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
 }))
+
+// 使用 Passport 
+app.use(passport.initialize())
+app.use(passport.session())
+
+// 載入 Passport config
+require('./config/passport')(passport)
+// 登入後可以取得使用者的資訊方便我們在 view 裡面直接使用
+app.use((req, res, next) => {
+  res.locals.user = req.user
+  next()
+})
 
 //自定義helper
 Handlebars.registerHelper('if_equal', function (item, expectedItem, options) {
