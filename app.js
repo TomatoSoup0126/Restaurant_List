@@ -53,8 +53,10 @@ db.once('open', () => {
 })
 
 
+//載入路由
 app.use('/', require('./routes/home'))
 app.use('/restaurants', require('./routes/restaurant'))
+app.use('/users', require('./routes/user'))
 
 
 
