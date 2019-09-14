@@ -13,6 +13,7 @@ if (process.env.NODE_ENV !== 'production') {      // 如果不是 production 模
 // require express-handlebars here
 const exphbs = require('express-handlebars')
 const Handlebars = require("handlebars")
+const flash = require('connect-flash')
 
 
 // 載入 mongoose
@@ -50,6 +51,20 @@ app.use(session({
 // 使用 Passport 
 app.use(passport.initialize())
 app.use(passport.session())
+
+app.use(flash())
+
+// 建立 local variables
+app.use((req, res, next) => {
+  res.locals.user = req.user
+  res.locals.isAuthenticated = req.isAuthenticated()    // 辨識使用者是否已經登入的變數，讓 view 可以使用
+
+  // 新增兩個 flash message 變數 
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.warning_msg = req.flash('warning_msg')
+  next()
+})
+
 
 // 載入 Passport config
 require('./config/passport')(passport)
