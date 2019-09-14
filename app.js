@@ -5,6 +5,11 @@ const port = 3000
 const session = require('express-session')
 const passport = require('passport')
 
+if (process.env.NODE_ENV !== 'production') {      // 如果不是 production 模式
+  require('dotenv').config()                      // 使用 dotenv 讀取 .env 檔案
+}
+
+
 // require express-handlebars here
 const exphbs = require('express-handlebars')
 const Handlebars = require("handlebars")
@@ -79,6 +84,7 @@ db.once('open', () => {
 app.use('/', require('./routes/home'))
 app.use('/restaurants', require('./routes/restaurant'))
 app.use('/users', require('./routes/user'))
+app.use('/auth', require('./routes/auths'))
 
 
 
