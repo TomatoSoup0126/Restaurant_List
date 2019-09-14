@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const Restaurant = require('../models/restaurant')
+const { authenticated } = require('../config/auth')
 
 //首頁
-router.get('/', (req, res) => {
+router.get('/', authenticated, (req, res) => {
   sortObject = {}
   sortObject[req.query.ref] = req.query.sort
   Restaurant.find({})
@@ -15,7 +16,7 @@ router.get('/', (req, res) => {
 })
 
 
-router.get('/search', (req, res) => {
+router.get('/search', authenticated, (req, res) => {
   const keyword = req.query.keyword
   Restaurant.find((err, restaurants) => {
     if (err) return console.log(err)
