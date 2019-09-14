@@ -2,6 +2,7 @@
 const express = require('express')
 const app = express()
 const port = 3000
+const session = require('express-session')
 
 // require express-handlebars here
 const exphbs = require('express-handlebars')
@@ -32,6 +33,13 @@ app.set('view engine', 'handlebars')
 
 // setting static files
 app.use(express.static('public'))
+
+// setting express-session
+app.use(session({
+  secret: 'tomato is vegetables',   // secret: 定義一組屬於你的字串做為私鑰
+  resave: false,
+  saveUninitialized: true,
+}))
 
 //自定義helper
 Handlebars.registerHelper('if_equal', function (item, expectedItem, options) {
