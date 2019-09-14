@@ -7,7 +7,7 @@ const { authenticated } = require('../config/auth')
 router.get('/', authenticated, (req, res) => {
   sortObject = {}
   sortObject[req.query.ref] = req.query.sort
-  Restaurant.find({})
+  Restaurant.find({ userId: req.user._id })
     .sort(sortObject)
     .exec((err, restaurants) => {
       if (err) return console.error(err)

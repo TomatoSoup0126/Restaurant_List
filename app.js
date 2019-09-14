@@ -19,7 +19,7 @@ const methodOverride = require('method-override')
 
 
 // 設定連線到 mongoDB的restaurant
-mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useCreateIndex: true })
 // mongoose 連線後透過 mongoose.connection 拿到 Connection 的物件
 const db = mongoose.connection
 
