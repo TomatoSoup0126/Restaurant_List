@@ -15,7 +15,8 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {                        // 使用 passport 認證
     successRedirect: '/',                                         // 登入成功會回到根目錄
-    failureRedirect: '/users/login'                        // 失敗會留在登入頁面
+    failureRedirect: '/users/login',                        // 失敗會留在登入頁面
+    failureFlash: req.flash('warning_msg', '登入失敗，請輸入正確的帳號密碼')
   })(req, res, next)
 })
 
@@ -31,8 +32,8 @@ router.post('/register', (req, res) => {
   // 加入錯誤訊息提示
   let errors = []
 
-  if (!name || !email || !password || !password2) {
-    errors.push({ message: '所有欄位都是必填' })
+  if (!email || !password || !password2) {
+    errors.push({ message: 'Email與密碼為必填欄位' })
   }
 
   if (password !== password2) {
