@@ -41,6 +41,7 @@
   $ npm install -g nodemon
   ```
 - 第三方登入需於根資料夾創建`.env`檔案，並寫入下列資訊才能作用
+
   [facebook](https://developers.facebook.com/apps/)：
   ```
   FACEBOOK_ID=自己的應用程式編號
